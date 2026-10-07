@@ -11,5 +11,22 @@ def download_shakespeare():
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
     urllib.request.urlretrieve(SHAKESPEARE_URL, DATA_PATH)
 
+class CharacterTokenizer:
+    def __init__(self, text: str):
+        self.characters=sorted(list(set(text)))
+        self.vocab_size=len(self.characters)
+        self.char_to_id = {}
+        for index, char in enumerate(self.characters):
+            self.char_to_id[char] = index
+        self.id_to_char = {}
+        for index, char in enumerate(self.characters):
+            self.id_to_char[index] = char
+        print(f"Vocabulary size: {self.vocab_size}")
+        print(f"Characters: {self.characters}")
+
+
 if __name__ == "__main__":
     download_shakespeare()
+    with open(DATA_PATH, "r", encoding="utf-8") as f:
+        text = f.read()
+    tokenizer = CharacterTokenizer(text)

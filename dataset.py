@@ -24,9 +24,17 @@ class CharacterTokenizer:
         print(f"Vocabulary size: {self.vocab_size}")
         print(f"Characters: {self.characters}")
 
+    def encode(self, text: str) -> list:
+        ids = []
+        for char in text:
+            ids.append(self.char_to_id[char])
+        return ids
 
 if __name__ == "__main__":
     download_shakespeare()
     with open(DATA_PATH, "r", encoding="utf-8") as f:
         text = f.read()
     tokenizer = CharacterTokenizer(text)
+    print(tokenizer.encode("hello"))
+    #[46, 43, 50, 50, 53]
+

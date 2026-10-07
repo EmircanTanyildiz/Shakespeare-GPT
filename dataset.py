@@ -22,7 +22,7 @@ class CharacterTokenizer:
         for index, char in enumerate(self.characters):
             self.id_to_char[index] = char
         print(f"Vocabulary size: {self.vocab_size}")
-        print(f"Characters: {self.characters}")
+        print(f"Characters : {self.characters}")
 
 
 if __name__ == "__main__":

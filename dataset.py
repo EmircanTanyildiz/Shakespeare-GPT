@@ -29,6 +29,11 @@ class CharacterTokenizer:
         for char in text:
             ids.append(self.char_to_id[char])
         return ids
+    def decode(self, ids: list) -> list:
+        text = []
+        for index in ids:
+            text.append(self.id_to_char[index])
+        return text
 
 if __name__ == "__main__":
     download_shakespeare()
@@ -37,4 +42,5 @@ if __name__ == "__main__":
     tokenizer = CharacterTokenizer(text)
     print(tokenizer.encode("hello"))
     #[46, 43, 50, 50, 53]
+    print(tokenizer.decode([46, 43, 50, 50, 53]))
 

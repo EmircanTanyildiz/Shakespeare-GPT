@@ -69,8 +69,15 @@ class GPT(nn.Module):
                 nn.init.zeros_(module.bias)
         elif isinstance(module, nn.Embedding):
             nn.init.normal_(module.weight, mean=0.0, std=0.02)
+    def forward(self, input_ids: torch.Tensor, targets: torch.Tensor):
+        batch_size, seq_lenght = input_ids.shape
+        device = input_ids.device
+        token_emb=self.token_embedding(input_ids)
+        position = torch.arange(seq_lenght, device=device)
 
 
+        position_emb = self.position_embedding(position)
+        
 
 
 

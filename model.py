@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch._C import dtype
 
+from dataset import load_data
+
 
 class TransformerBlock(nn.Module):
     def __init__(self, embedding_dim: int = 384, num_heads: int = 6, dropout: float= 0.1):
@@ -55,15 +57,18 @@ class GPT(nn.Module):
         self.register_buffer("causal_mask", causal_mask)
         self.apply(self._init_weights)
         total_parameters= sum(p.numel() for p in self.parameters())
-        print(f"Total number of parameters: {total_parameters}")
+        print(
+            f"Total number of parameters: "
+            f"{total_parameters:,} ({total_parameters / 1_000_000:.2f}M)"
+        )
 
     def _init_weights(self, module):
-        if isinstance(module, (nn.Linear, nn.Embedding)):
-            torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+        if isinstance(module, nn.Linear):
+            nn.init.normal_(module.weight, mean=0.0, std=0.02)
             if module.bias is not None:
-                torch.nn.init.zeros_(module.bias)
+                nn.init.zeros_(module.bias)
         elif isinstance(module, nn.Embedding):
-            nn.init.normal_(modul.weight, mean=0.0, std=0.02)
+            nn.init.normal_(module.weight, mean=0.0, std=0.02)
 
 
 
@@ -72,9 +77,7 @@ class GPT(nn.Module):
 
 
 if __name__=='__main__':
-    print(torch.triu(
-        torch.ones(256, 256, dtype=torch.bool),
-        diagonal=1
-    ))
-    gpt = GPT(vocab_size=256, embedding_dim=384, num_heads=6, num_layers=6)
+    #print(torch.triu(torch.ones(256, 256, dtype=torch.bool),diagonal=1))
+    gpt = GPT(vocab_size=65, embedding_dim=384)
+
 

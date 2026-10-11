@@ -87,6 +87,7 @@ if __name__ == "__main__":
     trainData, testData, tokenizer = load_data()
     x,y = getBatch(trainData, block_size=256, batch_size=5)
     print(x.shape, y.shape)
+    
 
 
 

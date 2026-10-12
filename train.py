@@ -45,7 +45,64 @@ def generate_sample(model, tokenizer):
     output_ids = model.generate(input_ids,200, 0.7)
     model.train()
     return tokenizer.decode(output_ids[0].tolist())
-if __name__ == "__main__":
-    gpt = GPT(vocab_size=65, embedding_dim=384).to(DEVICE)
+
+def train():
     train_data, test_data, tokenizer = load_data()
-    print(generate_sample(gpt, tokenizer))
+    vocab_size = tokenizer.vocab_size
+
+    model = GPT(vocab_size=vocab_size,
+                 embedding_dim= EMBEDDING_DIM,
+                 num_heads= num_of_heads,
+                 num_layers= num_of_layers,
+                 dropout= DROPOUT,
+                 block_size = block_size)
+    model.to(DEVICE)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
+    os.makedirs("checkpoints", exist_ok=True)
+    start_time = time.time()
+    for iteration in range(MAX_ITERS):
+        lr = get_learning_rate(iteration)
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+            x, y = getBatch(train_data, block_size=block_size, batch_size=BATCH_SIZE)
+            x, y = x.to(DEVICE), y.to(DEVICE)
+            logits, loss = model(x,y)
+            optimizer.zero_grad()
+            loss.backward()
+            #gradient clipping
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+
+            optimizer.step()
+            if iteration % EVAL_INTERVAL == 0 or iteration == MAX_ITERS -1:
+                losses = evaluate(model, train_data, test_data)
+                elapsed = time.time() - start_time
+                print(f"Iter: {iteration}, Train Loss: {losses['train']}, Test Loss: {losses['test']}, learning rate: {lr} Elapsed: {elapsed}")
+                if iteration > 0:
+                    print(generate_sample(model, tokenizer))
+    checkpoint = {
+        "model_state_dict": model.state_dict(),
+        "iteration": MAX_ITERS,
+        "test_loss" : losses["test"],
+        "config": {
+            "vocab_size": vocab_size,
+            "embedding_dim": EMBEDDING_DIM,
+            "num_heads": num_of_heads,
+            "num_layers": num_of_layers,
+            "dropout": DROPOUT,
+            "block_size": block_size
+        }
+
+    }
+
+    torch.save(checkpoint, CHECKPOINT_DIR)
+    total_time = time.time() - start_time
+    print(f"Total time: {total_time}")
+    print(f"Final Test loss: {losses['test']}")
+    print(f"Model saved to: {CHECKPOINT_DIR}")
+
+
+
+
+
+if __name__ == "__main__":
+    train()

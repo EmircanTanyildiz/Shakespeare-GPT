@@ -64,10 +64,10 @@ class GPT(nn.Module):
         self.register_buffer("causal_mask", causal_mask)
         self.apply(self._init_weights)
         total_parameters= sum(p.numel() for p in self.parameters())
-        print(
-            f"Total number of parameters: "
-            f"{total_parameters:,} ({total_parameters / 1_000_000:.2f}M)"
-        )
+        #print(
+        #    f"Total number of parameters: "
+        #    f"{total_parameters:,} ({total_parameters / 1_000_000:.2f}M)"
+        #)
 
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
@@ -89,7 +89,7 @@ class GPT(nn.Module):
             x = block(x, mask)
         x = self.ln_final(x)
         logits = self.output_proj(x)
-        print(f"logits.shape: {logits.shape}") # logits.shape: torch.Size([4, 256, 65])
+        #print(f"logits.shape: {logits.shape}") # logits.shape: torch.Size([4, 256, 65])
         # 4-> batch_size 256->block_size 65-> vocab
         loss = None
         if targets is not None:
@@ -108,7 +108,7 @@ class GPT(nn.Module):
                 current_input = input_ids[:, -self.block_size:]
             logits, loss = self.forward(current_input)
             last_logits = logits[:, -1, :]
-            print(f"Last Logits: {last_logits}")
+            #print(f"Last Logits: {last_logits}")
             last_logits = last_logits / temperature
             probs = F.softmax(last_logits, dim=-1)
             next_token = torch.multinomial(probs, num_samples=1)

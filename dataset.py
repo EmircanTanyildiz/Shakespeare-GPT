@@ -48,8 +48,8 @@ def load_data(train_split: float = 0.9):
     split_index=int(train_split * len(data))
     train_data = data[:split_index]
     test_data = data[split_index:]
-    print(f"Train Size: {len(train_data)}")
-    print(f"Test Size: {len(test_data)}")
+    #print(f"Train Size: {len(train_data)}")
+    #print(f"Test Size: {len(test_data)}")
     return train_data, test_data, tokenizer
 
 
@@ -78,15 +78,15 @@ def getBatch(data: torch.Tensor, block_size: int, batch_size):
 
     x = torch.stack(x_list)
     y = torch.stack(y_list)
-    print(x)
-    print(y)
+    #print(x)
+    #print(y)
     return x, y
 
 
 if __name__ == "__main__":
     trainData, testData, tokenizer = load_data()
     x,y = getBatch(trainData, block_size=256, batch_size=5)
-    print(x.shape, y.shape)
+    #print(x.shape, y.shape)
     
 
 

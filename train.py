@@ -2,9 +2,9 @@ import os
 import time
 import torch
 from model import GPT
-from dataset import load_data, getBatch
+from dataset import load_data, getBatch, CharacterTokenizer
 EMBEDDING_DIM = 384
-num_of_heads=12
+num_of_heads=6
 num_of_layers=6
 block_size=256
 DROPOUT=0.1
@@ -36,6 +36,16 @@ def evaluate(model, train_data, test_data):
         result[name]=total_loss/100
     model.train()
     return result
-
-
-
+@torch.no_grad()
+def generate_sample(model, tokenizer):
+    model.eval()
+    prompt="ROMEO: "
+    prompt_ids = tokenizer.encode(prompt)
+    input_ids = torch.tensor(prompt_ids, dtype=torch.long, device=DEVICE).unsqueeze(0)
+    output_ids = model.generate(input_ids,200, 0.7)
+    model.train()
+    return tokenizer.decode(output_ids[0].tolist())
+if __name__ == "__main__":
+    gpt = GPT(vocab_size=65, embedding_dim=384).to(DEVICE)
+    train_data, test_data, tokenizer = load_data()
+    print(generate_sample(gpt, tokenizer))

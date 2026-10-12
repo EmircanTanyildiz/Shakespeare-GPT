@@ -17,3 +17,9 @@ DEVICE = "mps" if torch.backends.mps.is_available() else "cpu"
 CHECKPOINT_DIR = "checkpoints/model.pt"
 
 
+def get_learning_rate(iteration):
+    if iteration <WARMUP_ITERS:
+        return LEARNING_RATE * (iteration / WARMUP_ITERS)
+    else:
+        return LEARNING_RATE
+

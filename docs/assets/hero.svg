@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="440" viewBox="0 0 1280 440" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Shakespeare-GPT</title>
+  <desc id="description">Character-level language modeling in PyTorch. A decoder-only Transformer with 10.80 million parameters, six blocks, six attention heads, and a 256-character context. A triangular attention pattern illustrates how each character sees only its current and preceding positions.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1280" y2="440" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101A22"/>
+      <stop offset="1" stop-color="#182B30"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="56" y1="0" x2="1224" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D6BB88"/>
+      <stop offset="1" stop-color="#78B8A5"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#A1B8C4" stroke-opacity="0.035"/>
+    </pattern>
+    <pattern id="mask-grid" x="1010" y="143" width="22" height="22" patternUnits="userSpaceOnUse">
+      <rect width="17" height="17" rx="3" fill="#78B8A5" fill-opacity="0.13"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="440" rx="20" fill="url(#background)"/>
+  <rect x="1" y="1" width="1278" height="438" rx="19" stroke="#506369" stroke-opacity="0.35"/>
+  <rect x="1" y="1" width="1278" height="438" rx="19" fill="url(#grid)"/>
+  <path d="M56 43H1224" stroke="url(#accent)" stroke-width="2"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="56" y="82" fill="#AABAC0" font-size="12" font-weight="700" letter-spacing="3">LANGUAGE MODELING / PYTORCH</text>
+    <text x="53" y="171" fill="#F3F1E9" font-size="69" font-weight="700" letter-spacing="-2.5">Shakespeare</text>
+    <text x="54" y="239" fill="#D6BB88" font-size="62" font-weight="700" letter-spacing="-1.5">GPT</text>
+    <text x="56" y="277" fill="#C4CFD1" font-size="19">Learning language, one character at a time.</text>
+    <text x="56" y="307" fill="#98AEB4" font-size="14">Random initialization. Causal attention. Autoregressive generation.</text>
+  </g>
+
+  <rect x="745" y="79" width="479" height="240" rx="12" fill="#101C23" stroke="#3C5156"/>
+  <circle cx="768" cy="102" r="3" fill="#D6BB88"/>
+  <text x="782" y="107" fill="#AABFC3" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="2">THE NEXT-CHARACTER OBJECTIVE</text>
+  <path d="M767 122H1202" stroke="#30464D"/>
+
+  <g font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace">
+    <text x="768" y="156" fill="#809CA5" font-size="11" letter-spacing="1">CONTEXT</text>
+    <text x="768" y="193" fill="#E7E9E3" font-size="30" letter-spacing="3">ROMEO</text>
+    <path d="M882 185H909M903 179L909 185L903 191" stroke="#D6BB88" stroke-width="1.5"/>
+    <rect x="922" y="163" width="39" height="40" rx="6" fill="#D6BB88" fill-opacity="0.12" stroke="#D6BB88" stroke-opacity="0.65"/>
+    <text x="931" y="193" fill="#D6BB88" font-size="30">:</text>
+    <text x="768" y="230" fill="#8CA8AF" font-size="12">p(next | context)</text>
+    <text x="768" y="254" fill="#8CA8AF" font-size="12">65 possible characters</text>
+  </g>
+
+  <path d="M986 143V269" stroke="#30464D"/>
+  <rect x="1010" y="143" width="132" height="132" fill="url(#mask-grid)"/>
+  <g fill="#78B8A5">
+    <rect x="1010" y="143" width="17" height="17" rx="3" fill-opacity="0.9"/>
+    <rect x="1010" y="165" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1032" y="165" width="17" height="17" rx="3" fill-opacity="0.9"/>
+    <rect x="1010" y="187" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1032" y="187" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1054" y="187" width="17" height="17" rx="3" fill-opacity="0.9"/>
+    <rect x="1010" y="209" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1032" y="209" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1054" y="209" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1076" y="209" width="17" height="17" rx="3" fill-opacity="0.9"/>
+    <rect x="1010" y="231" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1032" y="231" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1054" y="231" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1076" y="231" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1098" y="231" width="17" height="17" rx="3" fill-opacity="0.9"/>
+    <rect x="1010" y="253" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1032" y="253" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1054" y="253" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1076" y="253" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1098" y="253" width="17" height="17" rx="3" fill-opacity="0.52"/>
+    <rect x="1120" y="253" width="17" height="17" rx="3" fill-opacity="0.9"/>
+  </g>
+  <text x="1010" y="292" fill="#8CA8AF" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" letter-spacing="1.8">CAUSAL ATTENTION</text>
+
+  <path d="M56 348H1224" stroke="#3B5055"/>
+  <path d="M344 369V406M654 369V406M951 369V406" stroke="#3B5055"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="56" y="392" fill="#F3F1E9" font-size="26" font-weight="700">10.80M</text>
+    <text x="168" y="392" fill="#A5BABF" font-size="11" letter-spacing="1.5">PARAMETERS</text>
+    <text x="376" y="392" fill="#F3F1E9" font-size="26" font-weight="700">6 × 6</text>
+    <text x="466" y="392" fill="#A5BABF" font-size="11" letter-spacing="1.5">BLOCKS / HEADS</text>
+    <text x="686" y="392" fill="#F3F1E9" font-size="26" font-weight="700">256</text>
+    <text x="756" y="392" fill="#A5BABF" font-size="11" letter-spacing="1.5">CONTEXT LENGTH</text>
+    <text x="983" y="392" fill="#F3F1E9" font-size="26" font-weight="700">65</text>
+    <text x="1031" y="392" fill="#A5BABF" font-size="11" letter-spacing="1.5">CHARACTERS</text>
+  </g>
+</svg>

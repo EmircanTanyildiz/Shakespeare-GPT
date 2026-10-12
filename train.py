@@ -22,4 +22,20 @@ def get_learning_rate(iteration):
         return LEARNING_RATE * (iteration / WARMUP_ITERS)
     else:
         return LEARNING_RATE
+@torch.no_grad()
+def evaluate(model, train_data, test_data):
+    model.eval()
+    result={}
+    for name, data in [("train",train_data), ("test",test_data)]:
+        total_loss = 0.0
+        for _ in range(100):
+            x, y = getBatch(data, block_size=block_size, batch_size=BATCH_SIZE)
+            x, y = x.to(DEVICE), y.to(DEVICE)
+            logits, loss = model(x,y)
+            total_loss+=loss.item()
+        result[name]=total_loss/100
+    model.train()
+    return result
+
+
 
